@@ -1,36 +1,44 @@
 import * as vscode from 'vscode';
+import * as ini from 'ini';
 import { runInTerminal } from './terminal';
 
 async function getDevenvConfig(): Promise<string[]> {
     // Read the devenv configuration file
     const configPath = `${process.env.HOME}/.config/dotfiles/devenv`;
     const configContent = await vscode.workspace.fs.readFile(vscode.Uri.file(configPath));
-    const configLines = configContent.toString().split('\n');
-    return configLines.filter(line => line.trim().length > 0);
+    const config = ini.parse(configContent.toString());
+
+    if (config.images) {
+        return Object.keys(config.images);
+    }
+    return [];
+}
+
+async function selectPrefix(): Promise<string | undefined> {
+    const devenvConfigs = await getDevenvConfig();
+    const selectedPrefix = await vscode.window.showQuickPick(devenvConfigs, {
+        placeHolder: 'Select a devenv prefix'
+    });
+    return selectedPrefix;
 }
 
 export async function selectDevenv() {
-    const devenvConfigs = await getDevenvConfig();
-    const selectedDevenv = await vscode.window.showQuickPick(devenvConfigs, {
-        placeHolder: 'Select a devenv'
-    });
+    const selectedDevenv = await selectPrefix();
     if (selectedDevenv) {
-        vscode.window.showInformationMessage(`Selected Devenv: ${selectedDevenv}`);
+        vscode.window.showInformationMessage(`Selected devenv: ${selectedDevenv}`);
     }
 }
 
-export function runDevenvSys() {
-    vscode.window.showInputBox({ prompt: 'Enter the prefix for the devenv sys command' }).then(prefix => {
-        if (prefix) {
-            runInTerminal(`devenv ${prefix} sys`);
-        }
-    });
+export async function runDevenvSys() {
+    const prefix = await selectPrefix();
+    if (prefix) {
+        runInTerminal(`devenv ${prefix} sys`);
+    }
 }
 
-export function runDevenvShell() {
-    vscode.window.showInputBox({ prompt: 'Enter the prefix for the devenv shell command' }).then(prefix => {
-        if (prefix) {
-            runInTerminal(`devenv ${prefix} shell`);
-        }
-    });
+export async function runDevenvShell() {
+    const prefix = await selectPrefix();
+    if (prefix) {
+        runInTerminal(`devenv ${prefix} shell`);
+    }
 }
