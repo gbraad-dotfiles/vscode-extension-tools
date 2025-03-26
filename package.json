@@ -1,0 +1,64 @@
+{
+  "name": "dotfiles-tools",
+  "displayName": "gbraad's Dotfiles tools",
+  "publisher": "gbraad",
+  "author": {
+    "name": "Gerard Braad",
+    "email": "me@gbraad.nl"
+  },
+  "description": "A VSCode extension to automate tasks with `devenv.zsh` and `machine.zsh` from my dotfiles",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gbraad-vscode/dotfiles-tools"
+  },
+  "license": "MIT",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.98.0"
+  },
+  "icon": "img/icon.png",
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:devenv-helper.selectDevenv",
+    "onCommand:devenv-helper.runDevenvSys",
+    "onCommand:devenv-helper.runDevenvShell"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "devenv-helper.selectDevenv",
+        "title": "Select Devenv"
+      },
+      {
+        "command": "devenv-helper.runDevenvSys",
+        "title": "Run Devenv Sys"
+      },
+      {
+        "command": "devenv-helper.runDevenvShell",
+        "title": "Run Devenv Shell"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "webpack --mode production",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.98.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "20.x",
+    "@typescript-eslint/eslint-plugin": "^8.28.0",
+    "@typescript-eslint/parser": "^8.28.0",
+    "eslint": "^9.23.0",
+    "typescript": "^5.8.2",
+    "ts-loader": "^9.5.2",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1"
+  }
+}
