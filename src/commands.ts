@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import * as ini from 'ini';
+import { Log } from './utils';
 import { runInTerminal } from './terminal';
 
 async function getDevenvConfig(): Promise<string[]> {
@@ -19,26 +20,33 @@ async function selectPrefix(): Promise<string | undefined> {
     const selectedPrefix = await vscode.window.showQuickPick(devenvConfigs, {
         placeHolder: 'Select a devenv prefix'
     });
+    if (selectedPrefix) {
+        Log.info('Selected devenv prefix: ' + selectedPrefix);
+    }
     return selectedPrefix;
 }
 
 export async function selectDevenv() {
     const selectedDevenv = await selectPrefix();
     if (selectedDevenv) {
-        vscode.window.showInformationMessage(`Selected devenv: ${selectedDevenv}`);
+        Log.info('Selected devenv prefix: ' + selectedDevenv);
     }
 }
 
 export async function runDevenvSys() {
     const prefix = await selectPrefix();
     if (prefix) {
-        runInTerminal(`devenv ${prefix} sys`);
+        let command = `devenv ${prefix} sys`;
+        Log.info('Running command: ' + command);
+        runInTerminal(command);
     }
 }
 
 export async function runDevenvShell() {
     const prefix = await selectPrefix();
     if (prefix) {
-        runInTerminal(`devenv ${prefix} shell`);
+        let command = `devenv ${prefix} shell`;
+        Log.info('Running command: ' + command);
+        runInTerminal(command);
     }
 }
