@@ -33,19 +33,64 @@ export async function selectDevenv() {
     }
 }
 
-export async function runDevenvSys() {
+export async function runDevenvStart() {
     const prefix = await selectPrefix();
     if (prefix) {
-        let command = `devenv ${prefix} sys`;
+        let command = `devenv ${prefix} start`;
         Log.info('Running command: ' + command);
         runInTerminal(command);
     }
 }
 
-export async function runDevenvShell() {
+export async function runDevenvSystem() {
     const prefix = await selectPrefix();
     if (prefix) {
-        let command = `devenv ${prefix} shell`;
+        let command = `devenv ${prefix} system`;
+        Log.info('Running command: ' + command);
+        runInTerminal(command);
+    }
+}
+
+export async function runDevenvNoinit() {
+    const prefix = await selectPrefix();
+    if (prefix) {
+        let command = `devenv ${prefix} noinit`;
+        Log.info('Running command: ' + command);
+        runInTerminal(command);
+    }
+}
+
+export async function runDevenvUserShell() {
+    const prefix = await selectPrefix();
+    if (prefix) {
+        let command = `devenv ${prefix} user`;
+        Log.info('Running command: ' + command);
+        runInTerminal(command);
+    }
+}
+
+export async function runDevenvRootShell() {
+    const prefix = await selectPrefix();
+    if (prefix) {
+        let command = `devenv ${prefix} root`;
+        Log.info('Running command: ' + command);
+        runInTerminal(command);
+    }
+}
+
+export async function runDevenvUserEnv() {
+    const prefix = await selectPrefix();
+    if (prefix) {
+        let command = `devenv ${prefix} userenv`;
+        Log.info('Running command: ' + command);
+        runInTerminal(command);
+    }
+}
+
+export async function runDevenvRootEnv() {
+    const prefix = await selectPrefix();
+    if (prefix) {
+        let command = `devenv ${prefix} rootenv`;
         Log.info('Running command: ' + command);
         runInTerminal(command);
     }

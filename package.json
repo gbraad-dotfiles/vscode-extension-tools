@@ -12,7 +12,7 @@
     "url": "https://github.com/gbraad-vscode/dotfiles-tools"
   },
   "license": "MIT",
-  "version": "0.6.1",
+  "version": "0.6.3",
   "engines": {
     "vscode": "^1.94.0"
   },
@@ -25,8 +25,13 @@
   ],
   "activationEvents": [
     "onCommand:devenv-helper.selectDevenv",
-    "onCommand:devenv-helper.runDevenvSys",
-    "onCommand:devenv-helper.runDevenvShell"
+    "onCommand:devenv-helper.runDevenvStart",
+    "onCommand:devenv-helper.runDevenvNoinit",
+    "onCommand:devenv-helper.runDevenvSystem",
+    "onCommand:devenv-helper.runDevenvUserShell",
+    "onCommand:devenv-helper.runDevenvRootShell",
+    "onCommand:devenv-helper.runDevenvUserEnv",
+    "onCommand:devenv-helper.runDevenvRootEnv"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -48,14 +53,44 @@
         "category": "Dotfiles"
       },
       {
-        "command": "devenv-helper.runDevenvSys",
-        "title": "Run `devenv [prefix] sys`",
+        "command": "devenv-helper.runDevenvStart",
+        "title": "Run `devenv [prefix] start`",
         "enablement": "dotfiles-checker:isAvailable",
         "category": "Dotfiles"
       },
       {
-        "command": "devenv-helper.runDevenvShell",
-        "title": "Run `devenv [prefix] shell`",
+        "command": "devenv-helper.runDevenvSystem",
+        "title": "Run `devenv [prefix] start (system)`",
+        "enablement": "dotfiles-checker:isAvailable",
+        "category": "Dotfiles"
+      },
+      {
+        "command": "devenv-helper.runDevenvNoinit",
+        "title": "Run `devenv [prefix] start (noinit)`",
+        "enablement": "dotfiles-checker:isAvailable",
+        "category": "Dotfiles"
+      },      
+      {
+        "command": "devenv-helper.runDevenvUserShell",
+        "title": "Run `devenv [prefix] shell (user)`",
+        "enablement": "dotfiles-checker:isAvailable",
+        "category": "Dotfiles"
+      },
+      {
+        "command": "devenv-helper.runDevenvRootShell",
+        "title": "Run `devenv [prefix] shell (root)`",
+        "enablement": "dotfiles-checker:isAvailable",
+        "category": "Dotfiles"
+      },
+      {
+        "command": "devenv-helper.runDevenvUserEnv",
+        "title": "Run `devenv [prefix] env (user)`",
+        "enablement": "dotfiles-checker:isAvailable",
+        "category": "Dotfiles"
+      },
+      {
+        "command": "devenv-helper.runDevenvRootEnv",
+        "title": "Run `devenv [prefix] env (root)`",
         "enablement": "dotfiles-checker:isAvailable",
         "category": "Dotfiles"
       }
