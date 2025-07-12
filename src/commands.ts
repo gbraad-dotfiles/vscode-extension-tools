@@ -5,7 +5,7 @@ import { runInTerminal } from './terminal';
 
 async function getDevenvConfig(): Promise<string[]> {
     // Read the devenv configuration file
-    const configPath = `${process.env.HOME}/.config/dotfiles/devenv`;
+    const configPath = `${process.env.HOME}/.config/dotfiles/devenv.ini`;
     const configContent = await vscode.workspace.fs.readFile(vscode.Uri.file(configPath));
     const config = ini.parse(configContent.toString());
 
